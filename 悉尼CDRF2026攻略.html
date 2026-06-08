@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌏 悉尼 CDRF 2026 · HY 出行攻略</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --sand: #F5F0E8; --ocean: #2C6975; --coral: #E07A5F;
+    --sky: #81B7D2; --text: #3D405B; --light: #FEFEFB; --grey: #8D99AE;
+  }
+  body { font-family: 'Noto Sans SC', sans-serif; background: var(--light); color: var(--text); line-height: 1.8; font-weight: 300; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #1a3c4a 0%, #2C6975 40%, #3d8b99 70%, #81B7D2 100%);
+    color: #fff; padding: 60px 28px 50px; text-align: center; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 70%, rgba(242,204,143,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(129,183,210,0.15) 0%, transparent 50%);
+  }
+  .hero h1 { font-family: 'Noto Sans SC', sans-serif; font-size: 2.6em; font-weight: 600; position: relative; letter-spacing: 2px; }
+  .hero .sub { font-size: 1.05em; font-weight: 300; margin-top: 6px; opacity: 0.9; position: relative; }
+  .hero .dates { display: inline-block; margin-top: 14px; padding: 7px 24px; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 50px; font-size: 0.88em; font-weight: 300; position: relative; }
+
+  .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 36px 0; }
+  section.alt { background: var(--sand); }
+  .tag { display: inline-block; font-size: 0.7em; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--ocean); margin-bottom: 2px; }
+  h2 { font-family: 'Noto Sans SC', sans-serif; font-size: 1.5em; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+  h2::after { content: ''; display: block; width: 36px; height: 3px; background: var(--coral); margin-top: 5px; border-radius: 2px; }
+  h3 { font-family: 'Noto Sans SC', sans-serif; font-size: 1.05em; font-weight: 500; color: var(--ocean); margin: 14px 0 6px; }
+
+  .card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 3px 16px rgba(0,0,0,0.04); margin-bottom: 14px; }
+
+  /* Flight */
+  .flight-imgs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .flight-imgs img { width: 100%; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); cursor: pointer; transition: transform 0.2s; }
+  .flight-imgs img:hover { transform: scale(1.03); }
+  .flight-imgs .cap { font-size: 0.72em; font-weight: 300; color: var(--grey); text-align: center; margin-top: 3px; }
+
+  .tl { position: relative; padding-left: 22px; border-left: 2px dashed var(--sky); }
+  .tl .stop { margin-bottom: 12px; position: relative; }
+  .tl .stop::before { content: ''; position: absolute; left: -28px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--ocean); }
+  .tl .stop.arr::before { background: var(--coral); }
+  .tl .time { font-weight: 600; font-size: 0.95em; }
+  .tl .detail { font-size: 0.78em; font-weight: 300; color: var(--grey); }
+
+  /* Cost */
+  .cost-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .cost-item { flex: 1; min-width: 100px; background: #fff; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.03); }
+  .cost-item .amount { font-size: 1.5em; font-weight: 600; color: var(--ocean); }
+  .cost-item .label { font-size: 0.74em; font-weight: 300; color: var(--grey); margin-top: 2px; }
+
+  /* Attractions - 3x2 grid */
+  .att-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .att-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 3px 12px rgba(0,0,0,0.04); transition: transform 0.2s; }
+  .att-card:hover { transform: translateY(-3px); }
+  .att-card a { display: block; text-decoration: none; color: inherit; border-bottom: none; }
+  .att-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
+  .att-card .info { padding: 12px 14px; }
+  .att-card .name { font-weight: 500; font-size: 0.88em; }
+  .att-card .meta { font-size: 0.7em; font-weight: 300; color: var(--grey); margin-top: 2px; }
+  .att-card .tip { font-size: 0.68em; font-weight: 300; color: var(--coral); font-style: italic; margin-top: 2px; }
+
+  /* Hotel */
+  .hotel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hotel-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 3px 12px rgba(0,0,0,0.04); }
+  .hotel-card img { width: 100%; height: 160px; object-fit: cover; display: block; }
+  .hotel-card .body { padding: 14px 16px; }
+  .hotel-card .name { font-weight: 500; font-size: 0.92em; }
+  .hotel-card .stars { color: #f0b32e; font-size: 0.76em; font-weight: 300; }
+  .hotel-card .detail { font-size: 0.76em; font-weight: 300; color: var(--grey); line-height: 1.6; }
+  .hotel-card a.link { display: inline-block; margin-top: 4px; font-size: 0.76em; font-weight: 400; }
+
+  /* UNSW image */
+  .unsw-img { width: 100%; border-radius: 12px; margin-top: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.06); }
+
+  /* Day */
+  .day { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 6px; padding: 10px 14px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+  .day .d { flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.82em; color: #fff; }
+  .day .d.c { background: var(--ocean); }
+  .day .d.p { background: var(--coral); }
+  .day .d.t { background: var(--sky); }
+  .day .content h4 { font-family: 'Noto Sans SC', sans-serif; font-size: 0.9em; font-weight: 500; }
+  .day .content p { font-size: 0.78em; font-weight: 300; color: #666; line-height: 1.6; }
+
+  /* Friend photo */
+  .friend-photo { text-align: center; margin-top: 12px; }
+  .friend-photo img { width: 100%; max-width: 400px; border-radius: 12px; box-shadow: 0 3px 14px rgba(0,0,0,0.08); }
+
+  /* Links */
+  a { color: var(--ocean); text-decoration: none; border-bottom: 1px dotted var(--sky); font-weight: 400; }
+  a:hover { color: var(--coral); border-bottom-color: var(--coral); }
+  a.no-line { border-bottom: none; }
+
+  /* Tables */
+  table { font-family: 'Noto Sans SC', sans-serif; font-weight: 300; }
+  td strong { font-weight: 500; }
+
+  footer { background: var(--text); color: rgba(255,255,255,0.65); text-align: center; padding: 28px; font-size: 0.78em; font-weight: 300; }
+  footer strong { color: #fff; font-weight: 500; }
+
+  p { font-weight: 300; }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 1.7em; }
+    .att-grid { grid-template-columns: repeat(2, 1fr); }
+    .flight-imgs { grid-template-columns: 1fr; }
+    .hotel-grid { grid-template-columns: 1fr; }
+    .cost-row { flex-direction: row; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <h1>Sydney · CDRF 2026</h1>
+  <p class="sub">DigitalFUTURES 计算设计与机器人建造国际会议</p>
+  <p class="dates">🌏 重庆 → 北京 → 悉尼 · 7/7 – 7/10</p>
+</header>
+
+<!-- ═══ 航班 ═══ -->
+<section>
+  <div class="container">
+    <span class="tag">01 · Flights</span>
+    <h2>往返航班</h2>
+
+    <div class="flight-imgs">
+      <div>
+        <img src="YH出发：重庆-北京（会合）-悉尼.png" alt="HY出发" onclick="this.style.transform=this.style.transform==='scale(1.6)'?'':'scale(1.6)'">
+        <div class="cap">🟡 去程：重庆 → 北京 → 悉尼（浅黄高亮为所选航班）</div>
+      </div>
+      <div>
+        <img src="YH返程.png" alt="HY返程" onclick="this.style.transform=this.style.transform==='scale(1.6)'?'':'scale(1.6)'">
+        <div class="cap">🟡 返程：悉尼 → 北京 → 重庆（浅黄高亮为所选航班）</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-top:0;">🛫 行程速览</h3>
+      <div class="tl">
+        <div class="stop">
+          <div class="time">7月7日 · 出发</div>
+          <div class="detail">重庆 CKG → 北京（会合 ZY）→ 悉尼 SYD<br>🟡 浅黄高亮航班 · 抵达 <strong>14:50 AEST</strong></div>
+        </div>
+        <div class="stop arr">
+          <div class="time">7月10日 · 返程</div>
+          <div class="detail">悉尼 SYD <strong>19:40</strong> 起飞 → 北京 → 重庆 CKG<br>🟡 浅黄高亮航班 · 提前 2h 到机场</div>
+        </div>
+      </div>
+      <p style="font-size:0.76em;color:var(--grey);margin-top:10px;">
+        💰 HY 往返约 <strong style="color:var(--coral);">¥4,700</strong> · 含国内+国际联程
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 行程 ═══ -->
+<section class="alt">
+  <div class="container">
+    <span class="tag">02 · Itinerary</span>
+    <h2>每日安排</h2>
+
+    <div class="day"><div class="d t">7/7</div><div class="content"><h4>抵达悉尼 · 朋友接风 🚗</h4><p>14:50 抵悉尼机场，当地朋友开车来接，带逛市区初览：歌剧院外观 → 海港大桥 → The Rocks，晚上一起吃饭。入住酒店。</p></div></div>
+    <div class="friend-photo">
+      <img src="真实朋友.jpg" alt="当地朋友">
+      <p style="font-size:0.78em;color:var(--grey);margin-top:6px;">👫 一对真实夫妻，很靠谱</p>
+    </div>
+
+    <div class="day" style="margin-top:10px;"><div class="d c">7/8</div><div class="content"><h4>CDRF Day 1 · 灵活参会 🎤</h4><p>会议 9:00–17:00 @ UNSW Red Centre。可全天参会，或只在自己感兴趣的场次出席，其余时间自由探索：Bondi Beach / 市区。</p></div></div>
+
+    <div class="day"><div class="d c">7/9</div><div class="content"><h4>CDRF Day 2 · 灵活参会 🎤</h4><p>同上。下午若溜出来，推荐 Circular Quay 乘渡轮 → Taronga Zoo，或 Darling Harbour 闲逛。</p></div></div>
+
+    <div class="day"><div class="d p">7/10</div><div class="content"><h4>CDRF Day 3 · 半日自由 → 返程 ✈️</h4><p>上午参会或自由活动。下午 16:30 前回酒店取行李 → 17:00 到机场 → <strong>19:40</strong> 起飞回国。</p></div></div>
+
+    <img class="unsw-img" src="新南威尔斯.jpg" alt="UNSW Sydney">
+  </div>
+</section>
+
+<!-- ═══ 费用 ═══ -->
+<section>
+  <div class="container">
+    <span class="tag">03 · Budget</span>
+    <h2>HY 个人费用</h2>
+    <div class="cost-row">
+      <div class="cost-item">
+        <div class="amount">¥4,700</div>
+        <div class="label">✈️ 往返机票</div>
+      </div>
+      <div class="cost-item">
+        <div class="amount">¥1,000</div>
+        <div class="label">🛂 签证</div>
+      </div>
+      <div class="cost-item">
+        <div class="amount">~¥280/天</div>
+        <div class="label">🍽️ 餐饮（share）</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:10px;">
+      <table style="width:100%;font-size:0.8em;line-height:2.2;">
+        <tr><td>✈️ 往返机票（重庆 ⇄ 悉尼经北京）</td><td style="text-align:right;"><strong>¥4,700</strong></td></tr>
+        <tr><td>🛂 澳大利亚签证 Subclass 600</td><td style="text-align:right;">~¥1,000</td></tr>
+        <tr><td>🍽️ 餐饮 4天（与 ZY share）</td><td style="text-align:right;">~¥280 × 4 ≈ ¥1,120</td></tr>
+        <tr><td>🚃 市内交通（Opal 卡）</td><td style="text-align:right;">~A$15/天 × 4 ≈ ¥280</td></tr>
+        <tr style="font-weight:500;background:#fdf7f0;"><td>📊 HY 个人合计</td><td style="text-align:right;"><strong>约 ¥7,100</strong></td></tr>
+      </table>
+    </div>
+    <p style="font-size:0.74em;color:var(--grey);margin-top:4px;">* 住宿由 ZY 安排，不计入 HY 费用。游玩门票另计（观鲸 ~A$69、Taronga Zoo ~A$46、蓝山 Scenic World ~A$55）。</p>
+  </div>
+</section>
+
+<!-- ═══ 住宿 ═══ -->
+<section class="alt">
+  <div class="container">
+    <span class="tag">04 · Stay</span>
+    <h2>住宿选项</h2>
+    <p style="font-size:0.82em;color:var(--grey);margin-bottom:14px;">3晚（7/7 – 7/10）· 近 UNSW · 两种方案可选</p>
+
+    <!-- 方案A：双卧室套房 -->
+    <h3>🏠 方案 A：双卧室 + 客厅套房</h3>
+    <div class="hotel-grid">
+      <div class="hotel-card">
+        <img src="新南威尔斯附件两室一厅房间.png" alt="两室一厅">
+        <div class="body">
+          <div class="name">两室一厅公寓 · 客厅</div>
+          <div class="detail">🛋️ 宽敞客厅 + 开放式厨房<br>📍 近 UNSW Kensington 校区</div>
+        </div>
+      </div>
+      <div class="hotel-card">
+        <img src="新南威尔斯附件两室一厅房间01.png" alt="卧室">
+        <div class="body">
+          <div class="name">两室一厅公寓 · 卧室</div>
+          <div class="detail">🛏️ 独立卧室 ×2 · 隐私互不干扰<br>🚗 距 UNSW 车程 < 10分钟</div>
+          <a class="link" href="https://www.airbnb.com/s/Kensington-NSW/homes?checkin=2026-07-07&checkout=2026-07-10&adults=2&amenities=2-bedrooms" target="_blank">Airbnb 搜索类似公寓 →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 方案B：两间独立单间 -->
+    <h3 style="margin-top:20px;">🚪 方案 B：两间独立单间</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+      <div class="hotel-card">
+        <img src="两间独立单间.jpg" alt="独立单间">
+        <div class="body"><div class="name">单间 ①</div></div>
+      </div>
+      <div class="hotel-card">
+        <img src="两间独立单间01.jpg" alt="独立单间">
+        <div class="body"><div class="name">单间 ②</div></div>
+      </div>
+      <div class="hotel-card">
+        <img src="两间独立单间02.jpg" alt="卫浴">
+        <div class="body"><div class="name">独立卫浴</div></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px;font-size:0.8em;">
+      <strong>💡 预订渠道：</strong>
+      <a href="https://www.airbnb.com/s/Kensington-NSW/homes?checkin=2026-07-07&checkout=2026-07-10&adults=2" target="_blank">Airbnb Kensington/Randwick 区域 →</a> ·
+      <a href="https://www.trip.com/hotels/kensington-australia-4/hotels-c699381m13530827/" target="_blank">Trip.com Kensington 酒店 →</a> ·
+      <a href="https://www.booking.com/searchresults.html?ss=Kensington%2C+Sydney" target="_blank">Booking Kensington →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 景点 ═══ -->
+<section>
+  <div class="container">
+    <span class="tag">05 · Explore</span>
+    <h2>悉尼打卡</h2>
+    <p style="font-size:0.82em;color:var(--grey);margin-bottom:16px;">七月冬季 8–18°C · 晴爽少雨 · 🐋 座头鲸迁徙高峰 · 点击卡片跳转 Google Maps</p>
+
+    <div class="att-grid">
+      <!-- 1. 歌剧院 -->
+      <div class="att-card">
+        <a href="https://www.google.com/maps/search/?api=1&query=Sydney+Opera+House" target="_blank">
+          <img src="https://images.unsplash.com/photo-1624138784614-87fd1b6528f8?w=400&h=280&fit=crop" alt="Sydney Opera House">
+          <div class="info"><div class="name">🎭 悉尼歌剧院</div><div class="meta">轻轨25分钟 · UNESCO 世界遗产</div><div class="tip">🎟️ 可入内参观 / 看演出</div></div>
+        </a>
+      </div>
+
+      <!-- 2. 海港大桥 -->
+      <div class="att-card">
+        <a href="https://www.google.com/maps/search/?api=1&query=Sydney+Harbour+Bridge" target="_blank">
+          <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=400&h=280&fit=crop" alt="Harbour Bridge">
+          <div class="info"><div class="name">🌉 海港大桥</div><div class="meta">Circular Quay · 悉尼地标</div><div class="tip">🧗 可预约攀爬登顶</div></div>
+        </a>
+      </div>
+
+      <!-- 3. Bondi Beach -->
+      <div class="att-card">
+        <a href="https://www.google.com/maps/search/?api=1&query=Bondi+Beach+Sydney" target="_blank">
+          <img src="Bondi beach.jpg" alt="Bondi Beach">
+          <div class="info"><div class="name">🏄 Bondi Beach</div><div class="meta">公交15分钟 · 澳洲最著名海滩</div><div class="tip">⛸️ 冬季海边滑冰节 · Icebergs 泳池</div></div>
+        </a>
+      </div>
+
+      <!-- 4. Taronga Zoo -->
+      <div class="att-card">
+        <a href="https://www.google.com/maps/search/?api=1&query=Taronga+Zoo+Sydney" target="_blank">
+          <img src="动物园.png" alt="Taronga Zoo">
+          <div class="info"><div class="name">🦘 Taronga 动物园</div><div class="meta">Circular Quay 渡轮12分钟</div><div class="tip">📸 考拉袋鼠 + 海港天际线同框</div></div>
+        </a>
+      </div>
+
+      <!-- 5. 观鲸 -->
+      <div class="att-card">
+        <a href="https://www.google.com/maps/search/?api=1&query=Whale+watching+Sydney+Circular+Quay" target="_blank">
+          <img src="https://images.unsplash.com/photo-1568430328012-21ed450453ea?w=400&h=280&fit=crop" alt="Whale Watching">
+          <div class="info"><div class="name">🐋 观鲸巡航</div><div class="meta">Circular Quay 出发 · 2–3小时</div><div class="tip">🐋 7月座头鲸迁徙高峰 · 一生必看</div></div>
+        </a>
+      </div>
+
+      <!-- 6. 蓝山 -->
+      <div class="att-card">
+        <a href="https://www.google.com/maps/search/?api=1&query=Scenic+World+Blue+Mountains+Katoomba" target="_blank">
+          <img src="https://images.unsplash.com/photo-1502481851512-e9e2529bfbf9?w=400&h=280&fit=crop" alt="Blue Mountains">
+          <div class="info"><div class="name">🏔️ 蓝山国家公园</div><div class="meta">火车2小时 · 三姐妹峰</div><div class="tip">🎄 Christmas in July · 世界最陡铁路</div></div>
+        </a>
+      </div>
+    </div>
+
+    <p style="font-size:0.74em;color:var(--grey);margin-top:8px;text-align:center;">🖱️ 点击任意景点卡片 → 跳转 Google Maps 查看位置与导航</p>
+  </div>
+</section>
+
+<!-- ═══ 贴士 ═══ -->
+<section class="alt">
+  <div class="container">
+    <span class="tag">06 · Tips</span>
+    <h2>出行贴士</h2>
+    <div class="card">
+      <table style="width:100%;font-size:0.8em;line-height:2.2;">
+        <tr><td>🛂</td><td><strong>签证</strong></td><td>尽快办！距出发不到一个月了 · <a href="https://immi.homeaffairs.gov.au/visas/getting-a-visa/visa-listing/visitor-600" target="_blank">官网申请 →</a></td></tr>
+        <tr><td>💳</td><td><strong>支付</strong></td><td>A$1 ≈ ¥4.7 · 全城可刷卡/Apple Pay · 备 Visa/Mastercard</td></tr>
+        <tr><td>🚃</td><td><strong>交通</strong></td><td>机场买 <a href="https://transportnsw.info/tickets-opal/opal-card" target="_blank">Opal Card</a> · 轻轨/火车/公交/渡轮通用 · 日封顶 A$16.80</td></tr>
+        <tr><td>📱</td><td><strong>网络</strong></td><td>机场 Telstra/Optus 预付 SIM · 或 <a href="https://www.airalo.com/" target="_blank">Airalo eSIM</a></td></tr>
+        <tr><td>🌡️</td><td><strong>穿衣</strong></td><td>7月 8–18°C · 薄羽绒+毛衣+围巾 · 洋葱穿搭 · 晴天紫外线仍强</td></tr>
+        <tr><td>🔌</td><td><strong>电源</strong></td><td>八字三孔 230V · 带转换插头+排插</td></tr>
+        <tr><td>⏰</td><td><strong>时差</strong></td><td>悉尼比北京快 2h · 北京 12:00 = 悉尼 14:00</td></tr>
+        <tr><td>🍽️</td><td><strong>美食</strong></td><td>Kingsford 中餐密集 · 必试 Flat White · <a href="https://www.tripadvisor.com/Restaurants-g255060-Sydney_New_South_Wales.html" target="_blank">TripAdvisor →</a></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Sydney CDRF 2026 · Made for <strong>HY</strong> 💙</p>
+  <p style="margin-top:4px;">UNSW · DigitalFUTURES · Circular Intelligence</p>
+  <p style="margin-top:10px;font-size:0.68em;">攻略仅供参考 · 请以实际预订信息为准 · 🐨🦘🌏</p>
+</footer>
+
+</body>
+</html>
